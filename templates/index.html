@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <h1>🤖 AI Resume Analyzer</h1>
+
+        <input type="file" id="resume">
+        <br><br>
+
+        <textarea id="jobdesc" placeholder="Paste Job Description here..." rows="6"></textarea>
+        <br><br>
+
+        <button onclick="upload()">Analyze Resume</button>
+
+        <div id="result" class="hidden">
+            <h2>ATS Score: <span id="score">0</span>%</h2>
+
+            <p>Similarity Score: <span id="sim"></span>%</p>
+
+            <div class="bar">
+                <div id="progress"></div>
+            </div>
+
+            <div class="section">
+                <h3>✅ Matched Skills</h3>
+                <div id="matched"></div>
+            </div>
+
+            <div class="section">
+                <h3>❌ Missing Skills</h3>
+                <div id="missing"></div>
+            </div>
+
+            <div class="section">
+                <h3>🤖 Suggestions</h3>
+                <div id="suggestions"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
