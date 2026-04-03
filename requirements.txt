@@ -1,5 +1,0 @@
-flask
-spacy
-PyPDF2
-scikit-learn
-gunicorn

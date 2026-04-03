@@ -2,49 +2,57 @@
 <html>
 <head>
     <title>AI Resume Analyzer</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<div class="container">
-    <div class="card">
-        <h1>🤖 AI Resume Analyzer</h1>
+    <div class="container">
+        <h1>🚀 AI Resume Analyzer</h1>
 
-        <input type="file" id="resume">
-        <br><br>
+        <form method="POST">
+<textarea name="resume" placeholder="Paste Resume" required>{{ resume }}</textarea>
 
-        <textarea id="jobdesc" placeholder="Paste Job Description here..." rows="6"></textarea>
-        <br><br>
+<textarea name="job_desc" placeholder="Paste Job Description" required>{{ job_desc }}</textarea>
 
-        <button onclick="upload()">Analyze Resume</button>
+            <button type="submit">Analyze</button>
+        </form>
 
-        <div id="result" class="hidden">
-            <h2>ATS Score: <span id="score">0</span>%</h2>
+      {% if result %}
+    <div class="result-box">
 
-            <p>Similarity Score: <span id="sim"></span>%</p>
+        <h2>⭐ ATS Score: {{ result.ats_score }}%</h2>
 
-            <div class="bar">
-                <div id="progress"></div>
-            </div>
-
-            <div class="section">
-                <h3>✅ Matched Skills</h3>
-                <div id="matched"></div>
-            </div>
-
-            <div class="section">
-                <h3>❌ Missing Skills</h3>
-                <div id="missing"></div>
-            </div>
-
-            <div class="section">
-                <h3>🤖 Suggestions</h3>
-                <div id="suggestions"></div>
-            </div>
+        <div class="score-bar">
+            <div class="score-fill" style="width: {{ result.ats_score }}%;"></div>
         </div>
-    </div>
-</div>
 
-<script src="/static/script.js"></script>
+        <h3>✅ Matched Keywords ({{ result.matched_keywords|length }})</h3>
+        <ul>
+            {% for k in result.matched_keywords %}
+                <li>{{ k }}</li>
+            {% endfor %}
+        </ul>
+
+        <h3>❌ Missing Keywords ({{ result.missing_keywords|length }})</h3>
+        <ul>
+            {% for k in result.missing_keywords %}
+                <li>{{ k }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>📄 Improved Resume</h2>
+        <pre>{{ result.improved_resume }}</pre>
+
+        <h2>💡 Suggestions</h2>
+        <ul>
+            {% for s in result.suggestions %}
+                <li>{{ s }}</li>
+            {% endfor %}
+        </ul>
+
+    </div>
+{% endif %}
+    </div>
+
 </body>
 </html>
